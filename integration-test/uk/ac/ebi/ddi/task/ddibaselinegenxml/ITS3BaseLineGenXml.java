@@ -17,9 +17,9 @@ import uk.ac.ebi.ddi.task.ddibaselinegenxml.configuration.DdiBaselineTaskPropert
 @ContextConfiguration(classes = DdiBaselineGenxmlApplication.class,
         initializers = ConfigFileApplicationContextInitializer.class)
 @TestPropertySource(properties = {
-        "baselineprops.experimentFileName = /tmp/omics/ebeye_baseline_experiments_export.xml",
-        "baselineprops.geneFileName = /tmp/omics/ebeye_baseline_genes_export.xml",
-        "baselineprops.outputFile = data/exp/ebeye_baseline_experiments.xml",
+        "baselineprops.experimentFileName = data/expressionatlas/input/ebeye_baseline_experiments_export.xml",
+        "baselineprops.geneFileName = data/expressionatlas/input/ebeye_baseline_genes_export.xml",
+        "baselineprops.outputFile = data/expressionatlas/input/ebeye_baseline_experiments.xml",
         "s3.env_auth=true",
         "s3.endpoint_url=https://s3.embassy.ebi.ac.uk",
         "s3.bucket_name=caas-omicsdi",
