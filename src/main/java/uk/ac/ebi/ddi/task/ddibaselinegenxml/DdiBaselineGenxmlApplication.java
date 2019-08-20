@@ -46,5 +46,6 @@ public class DdiBaselineGenxmlApplication implements CommandLineRunner {
         LOGGER.info("Total genes: {}", genes.size());
         GenerateExpressionAtlasFile.generate(experiments, genes, omicsDIFile);
         fileSystem.copyFile(omicsDIFile, ddiBaselineTaskProperties.getOutputFile());
+        LOGGER.info("file is uploaded to s3");
     }
 }
