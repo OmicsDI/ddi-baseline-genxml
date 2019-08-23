@@ -1,6 +1,8 @@
 package uk.ac.ebi.ddi.task.ddibaselinegenxml;
 
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +24,8 @@ import java.util.Set;
 @SpringBootApplication
 public class DdiBaselineGenxmlApplication implements CommandLineRunner {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DdiBaselineGenxmlApplication.class);
+
     @Autowired
     private DdiBaselineTaskProperties taskProperties;
 
@@ -38,7 +42,11 @@ public class DdiBaselineGenxmlApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         List<String> experiments = fileSystem.listFilesFromFolder(taskProperties.getExperimentDir());
         for (String experimentFile : experiments) {
-            process(experimentFile);
+            try {
+                process(experimentFile);
+            } catch (Exception e) {
+                LOGGER.error("Exception occurred when processing file {}", experimentFile, e);
+            }
         }
     }
 
