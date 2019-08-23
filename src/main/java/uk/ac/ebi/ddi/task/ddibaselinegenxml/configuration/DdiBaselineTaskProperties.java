@@ -3,29 +3,29 @@ package uk.ac.ebi.ddi.task.ddibaselinegenxml.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("baselineprops")
+@ConfigurationProperties("baseline")
 public class DdiBaselineTaskProperties {
 
-    private String experimentFileName;
+    private String experimentFile;
 
-    private String geneFileName;
+    private String genesDir;
 
     private String outputFile;
 
-    public String getExperimentFileName() {
-        return experimentFileName;
+    public String getExperimentFile() {
+        return experimentFile;
     }
 
-    public void setExperimentFileName(String experimentFileName) {
-        this.experimentFileName = experimentFileName;
+    public void setExperimentFile(String experimentFile) {
+        this.experimentFile = experimentFile;
     }
 
-    public String getGeneFileName() {
-        return geneFileName;
+    public String getGenesDir() {
+        return genesDir;
     }
 
-    public void setGeneFileName(String geneFileName) {
-        this.geneFileName = geneFileName;
+    public void setGenesDir(String genesDir) {
+        this.genesDir = genesDir;
     }
 
     public String getOutputFile() {
