@@ -1,5 +1,6 @@
 package uk.ac.ebi.ddi.task.ddibaselinegenxml.services;
 
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -37,6 +38,11 @@ public class GeneService {
             }
         } catch (IOException e) {
             LOGGER.error("Can't read genes file {} for experiment {}", genesFile, experimentId, e);
+        } catch (AmazonS3Exception e) {
+            if (e.getStatusCode() != 404) {
+                throw e;
+            }
+            LOGGER.error("Can't read genes file {} for experiment {}, file doesn't exists", genesFile, experimentId);
         }
         return result;
     }
