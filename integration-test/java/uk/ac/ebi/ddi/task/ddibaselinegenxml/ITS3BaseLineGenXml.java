@@ -20,9 +20,9 @@ import java.io.File;
 @ContextConfiguration(classes = DdiBaselineGenxmlApplication.class,
         initializers = ConfigFileApplicationContextInitializer.class)
 @TestPropertySource(properties = {
-        "baseline.experimentFile=testing/expressionatlas/ebeye_baseline_experiments_export.xml",
+        "baseline.experimentDir=testing/expressionatlas/experiments",
         "baseline.genesDir=testing/expressionatlas/genes",
-        "baseline.outputFile=testing/expressionatlas/ebeye_baseline_experiments.xml",
+        "baseline.outputFile=testing/expressionatlas/out",
         "s3.env_auth=true",
         "s3.endpoint_url=https://s3.embassy.ebi.ac.uk",
         "s3.bucket_name=caas-omicsdi",
@@ -41,9 +41,11 @@ public class ITS3BaseLineGenXml {
 
     @Before
     public void setUp() throws Exception {
-        new File(ddiBaselineTaskProperties.getGenesDir()).mkdirs();
-        File experiment = getResource("ebeye_baseline_experiments_export.xml");
-        fileSystem.copyFile(experiment, ddiBaselineTaskProperties.getExperimentFile());
+        File experiment = getResource("e-enad-1.xml");
+        fileSystem.copyFile(experiment, ddiBaselineTaskProperties.getExperimentDir() + "/e-enad-1.xml");
+
+        experiment = getResource("e-mtab-2770.xml");
+        fileSystem.copyFile(experiment, ddiBaselineTaskProperties.getExperimentDir() + "/e-mtab-2770.xml");
 
         File gene = getResource("e-enad-1.json");
         fileSystem.copyFile(gene, ddiBaselineTaskProperties.getGenesDir() + "/e-enad-1.json");
@@ -58,14 +60,14 @@ public class ITS3BaseLineGenXml {
 
     @After
     public void tearDown() throws Exception {
-        fileSystem.deleteFile(ddiBaselineTaskProperties.getOutputFile());
-        fileSystem.deleteFile(ddiBaselineTaskProperties.getExperimentFile());
+        fileSystem.cleanDirectory(ddiBaselineTaskProperties.getOutputDir());
+        fileSystem.cleanDirectory(ddiBaselineTaskProperties.getExperimentDir());
         fileSystem.cleanDirectory(ddiBaselineTaskProperties.getGenesDir());
     }
 
     @Test
     public void contextLoads() throws Exception {
         ddiBaselineGenxmlApplication.run();
-        Assert.assertTrue(fileSystem.isFile(ddiBaselineTaskProperties.getOutputFile()));
+        Assert.assertEquals(2, fileSystem.listFilesFromFolder(ddiBaselineTaskProperties.getOutputDir()).size());
     }
 }

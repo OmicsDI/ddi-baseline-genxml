@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<database>
+    <name>Expression Atlas</name>
+    <description>A semantically enriched database of publicly available gene and transcript expression data. The data is re-analysed in-house to detect genes showing interesting baseline and differential expression patterns under the conditions of the original experiment.</description>
+    <release />
+    <release_date>14-Aug-2019</release_date>
+    <entry_count>2</entry_count>
+    <entries>
+        <entry id="E-ENAD-1">
+            <name>E-ENAD-1</name>
+            <description>Theobroma cacao Transcriptome or Gene expression</description>
+            <dates>
+                <date type="creation" value="2017-12-06 16:29:58.169766" />
+                <date type="last_modification" value="2017-12-06 16:29:58.169766" />
+                <date type="publication" value="2017-12-06 16:29:58.169766" />
+            </dates>
+            <cross_references>
+                <ref dbname="arrayexpress" dbkey="E-ENAD-1" />
+            </cross_references>
+        </entry>
+    </entries>
+</database>
+
+
+<entry id="E-MTAB-2770">
+<name>E-MTAB-2770</name>
+<description>RNA-seq of 934 human cancer cell lines from the Cancer Cell Line Encyclopedia</description>
+<dates>
+    <date type="creation" value="2017-05-09 13:52:18" />
+    <date type="last_modification" value="2017-05-09 13:52:18" />
+    <date type="publication" value="2017-05-09 13:52:18" />
+</dates>
+<cross_references>
+    <ref dbname="arrayexpress" dbkey="E-MTAB-2770" />
+</cross_references>
+</entry>

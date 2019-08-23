@@ -1,5 +1,6 @@
 package uk.ac.ebi.ddi.task.ddibaselinegenxml;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +23,7 @@ import java.util.Set;
 public class DdiBaselineGenxmlApplication implements CommandLineRunner {
 
     @Autowired
-    private DdiBaselineTaskProperties ddiBaselineTaskProperties;
+    private DdiBaselineTaskProperties taskProperties;
 
     @Autowired
     private IFileSystem fileSystem;
@@ -35,8 +36,15 @@ public class DdiBaselineGenxmlApplication implements CommandLineRunner {
     }
 
     public void run(String... args) throws Exception {
+        List<String> experiments = fileSystem.listFilesFromFolder(taskProperties.getExperimentDir());
+        for (String experimentFile : experiments) {
+            process(experimentFile);
+        }
+    }
+
+    private void process(String experimentFile) throws Exception {
         File omicsDIFile = File.createTempFile("omicsdi-", ".xml");
-        OmicsXMLFile experiments = new OmicsXMLFile(fileSystem.getFile(ddiBaselineTaskProperties.getExperimentFile()));
+        OmicsXMLFile experiments = new OmicsXMLFile(fileSystem.getFile(experimentFile));
         OmicsDataMarshaller mm = new OmicsDataMarshaller();
 
         Database database = new Database();
@@ -54,6 +62,7 @@ public class DdiBaselineGenxmlApplication implements CommandLineRunner {
         database.setEntries(entries);
         mm.marshall(database, new FileWriter(omicsDIFile));
 
-        fileSystem.copyFile(omicsDIFile, ddiBaselineTaskProperties.getOutputFile());
+        String outputFile = taskProperties.getOutputDir() + "/" + FilenameUtils.getName(experimentFile);
+        fileSystem.copyFile(omicsDIFile, outputFile);
     }
 }
