@@ -6,18 +6,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("baseline")
 public class DdiBaselineTaskProperties {
 
-    private String experimentFile;
+    private String experimentDir;
 
     private String genesDir;
 
-    private String outputFile;
+    private String outputDir;
 
-    public String getExperimentFile() {
-        return experimentFile;
+    public String getExperimentDir() {
+        return experimentDir;
     }
 
-    public void setExperimentFile(String experimentFile) {
-        this.experimentFile = experimentFile;
+    public void setExperimentDir(String experimentDir) {
+        this.experimentDir = experimentDir;
     }
 
     public String getGenesDir() {
@@ -28,12 +28,12 @@ public class DdiBaselineTaskProperties {
         this.genesDir = genesDir;
     }
 
-    public String getOutputFile() {
-        return outputFile;
+    public String getOutputDir() {
+        return outputDir;
     }
 
-    public void setOutputFile(String outputFile) {
-        this.outputFile = outputFile;
+    public void setOutputDir(String outputDir) {
+        this.outputDir = outputDir;
     }
 
 
