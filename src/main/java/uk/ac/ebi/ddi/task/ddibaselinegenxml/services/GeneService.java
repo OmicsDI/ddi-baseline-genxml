@@ -30,7 +30,7 @@ public class GeneService {
     public Set<String> getGeneIdsFromExperiment(String experimentId) {
         String genesFile = taskProperties.getGenesDir() + "/" + experimentId.toLowerCase() + ".json";
         Set<String> result = new HashSet<>();
-        try (InputStream inputStream = fileSystem.getInputStream(genesFile)){
+        try (InputStream inputStream = fileSystem.getInputStream(genesFile)) {
             JsonNode genes = mapper.readTree(inputStream);
             for (JsonNode gene : genes) {
                 result.add(gene.get("id").textValue());
